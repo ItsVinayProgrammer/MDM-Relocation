@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDM Relocation - Your Trusted Packers & Movers</title>
+    <meta name="description" content="MDM Relocation: India's trusted packers and movers for home, office, and vehicle shifting. Get instant quotes, enjoy real-time tracking, premium packing, and a damage-free guarantee.">
+    <meta name="keywords" content="packers, movers, relocation, residential moving, office shifting, vehicle transportation, storage solutions, MDM Relocation, home shifting, instant quote, real-time tracking">
+    <link rel="stylesheet" href="/src/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <header id="main-header">
+        <nav class="container">
+            <a href="#" class="logo" aria-label="MDM Relocation Homepage" style="display: flex; align-items: center; background: transparent;">
+                <img src="MDM logo.png" alt="MDM logo" id="header-logo" style="object-fit: contain; background: transparent; border: none; padding: 0; margin: 0;" referrerPolicy="no-referrer"/>
+                <span class="logo-text" style="margin-left: 10px;">MDM Relocation</span>
+            </a>
+            <ul class="nav-links">
+                <li><a class="scroll-link" href="#hero">Home</a></li>
+                <li><a class="scroll-link" href="#services">Services</a></li>
+                <li><a class="scroll-link" href="#about">About Us</a></li>
+                <li><a class="scroll-link" href="#testimonials">Testimonials</a></li>
+                <li><a class="scroll-link" href="#contact">Contact</a></li>
+            </ul>
+             <a href="https://wa.me/918438050188?text=I'd%20like%20to%20get%20a%20quote%20for%20moving." target="_blank" class="cta-button nav-cta" role="button">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp Quote
+            </a>
+            <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="hero-background-parallax"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-container container">
+                <div class="hero-content">
+                    <h1 class="fade-in">Make Your Move Effortless with <span class="gold-accent-glow">MDM Relocation</span></h1>
+                    <p class="fade-in">India’s most reliable moving partner is here to help. Get instant quotes, dedicated support, and a seamless, damage-free relocation experience for your home, office, or vehicle.</p>
+                </div>
+                <div class="hero-form-container glassmorphic fade-in">
+                    <form id="quote-form" class="quote-form">
+                        <h3>Get Your Instant Quote Today!</h3>
+                        <div class="form-group">
+                            <label for="service-type">Service Type</label>
+                            <select id="service-type" name="service-type" required>
+                                <option value="" disabled selected>Select a service...</option>
+                                <option value="home-shifting">Home Shifting </option>
+                                <option value="office-relocation">Office & Corporate Moves</option>
+                                <option value="vehicle-transport">Car & Bike Transportation</option>
+                                <option value="storage-solutions">Storage & Warehousing</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="from-location">Pickup Location</label>
+                            <input type="text" id="from-location" name="from-location" placeholder="e.g., Mumbai" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="to-location">Drop Location</label>
+                            <input type="text" id="to-location" name="to-location" placeholder="e.g., Chennai" required>
+                        </div>
+                        <div class="form-group phone-group">
+                            <label for="phone-number">Phone Number</label>
+                            <div class="phone-input-wrapper">
+                                <span class="phone-icon"><i class="fas fa-phone"></i></span>
+                                <input
+                                  type="tel"
+                                  id="phone-number"
+                                  name="phone-number"
+                                  placeholder="e.g., 9876543210"
+                                  required
+                                  maxlength="10"
+                                  pattern="[0-9]{10}"
+                                  autocomplete="tel"
+                                  oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);"
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="moving-date-display">Moving Date</label>
+                            <div id="date-picker-container" class="date-picker-container">
+                                <div id="moving-date-display" class="date-picker-display" tabindex="0" role="button" aria-haspopup="dialog" aria-expanded="false">
+                                    <span class="placeholder">Select a date...</span>
+                                    <i class="fas fa-calendar-day"></i>
+                                </div>
+                                <input type="hidden" id="moving-date" name="moving-date" required>
+                                <div id="calendar-popup" class="calendar-popup" role="dialog" aria-modal="true" aria-labelledby="calendar-month-year">
+                                    <div class="calendar-header">
+                                        <button type="button" class="calendar-nav-btn prev-month" aria-label="Previous month"><i class="fas fa-chevron-left"></i></button>
+                                        <button type="button" id="calendar-month-year-btn" class="calendar-month-year-btn" aria-live="polite">
+                                            <span id="calendar-month-year-label"></span>
+                                        </button>
+                                        <button type="button" class="calendar-nav-btn next-month" aria-label="Next month"><i class="fas fa-chevron-right"></i></button>
+                                    </div>
+                                    <div class="calendar-main-content">
+                                        <div id="calendar-day-view" class="calendar-view">
+                                            <div class="calendar-grid">
+                                                <div class="calendar-day-header">Su</div>
+                                                <div class="calendar-day-header">Mo</div>
+                                                <div class="calendar-day-header">Tu</div>
+                                                <div class="calendar-day-header">We</div>
+                                                <div class="calendar-day-header">Th</div>
+                                                <div class="calendar-day-header">Fr</div>
+                                                <div class="calendar-day-header">Sa</div>
+                                            </div>
+                                            <div id="calendar-body" class="calendar-body"></div>
+                                        </div>
+                                        <div id="calendar-month-view" class="calendar-view"></div>
+                                        <div id="calendar-year-view" class="calendar-view"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-checkbox">
+                            <input type="checkbox" id="flexible-date" name="flexible-date">
+                            <label for="flexible-date">My moving date is flexible</label>
+                        </div>
+                        <button type="submit" class="cta-button submit-btn">Get My Free Quote</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-choose-us" class="section-padding">
+            <div class="container fade-in">
+                 <h2 class="section-title">Relocation, Perfected. The MDM Advantage.</h2>
+                 <p class="section-subtitle">We combine technology, trust, and a dedicated team to deliver a moving experience that’s not just better, but revolutionary. See why thousands of customers choose us.</p>
+                 <div class="stats-container">
+                    <div class="stat-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h3 class="stat-counter" data-target="15">0</h3>
+                        <p>Years in Service</p>
+                    </div>
+                     <div class="stat-item">
+                        <i class="fas fa-map-pin"></i>
+                        <h3 class="stat-counter" data-target="10000" data-suffix="+">0</h3>
+                        <p>Serviceable Pincodes</p>
+                    </div>
+                     <div class="stat-item">
+                        <i class="fas fa-city"></i>
+                        <h3 class="stat-counter" data-target="50">0</h3>
+                        <p>Cities Covered</p>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3 class="stat-counter" data-target="100">0</h3>
+                        <p>% Safe Handling</p>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <section id="services" class="section-padding">
+            <div class="container">
+                <h2 class="section-title fade-in">Our Comprehensive Relocation Services</h2>
+                <p class="section-subtitle fade-in">From a single item to a full household, across the city or across the globe, we have a tailored solution for every move.</p>
+                <div class="service-cards">
+                    <div class="card-flip-container fade-in">
+                        <div class="card-flipper">
+                            <div class="card-front">
+                                <div class="card-icon"><i class="fas fa-home"></i></div>
+                                <div class="card-content">
+                                    <h3>Home Shifting</h3>
+                                    <p>Safe, seamless, and stress-free.</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="card-content">
+                                    <h3>Complete Home Shifting</h3>
+                                    <p>Our end-to-end home shifting service ensures your belongings are moved safely. We provide premium packing materials, professional loading/unloading, secure transport, and dedicated support for a seamless experience.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-flip-container fade-in">
+                        <div class="card-flipper">
+                             <div class="card-front">
+                                <div class="card-icon"><i class="fas fa-car"></i></div>
+                                <div class="card-content">
+                                    <h3>Vehicle Shifting</h3>
+                                    <p>Your car or bike, delivered safely.</p>
+                                </div>
+                            </div>
+                             <div class="card-back">
+                                 <div class="card-content">
+                                    <h3>Secure Vehicle Transport</h3>
+                                    <p>Trust us to transport your car or bike anywhere in India. We use specialized carriers, ensure secure loading, and provide real-time tracking for your peace of mind.</p>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-flip-container fade-in">
+                        <div class="card-flipper">
+                             <div class="card-front">
+                                <div class="card-icon"><i class="fas fa-briefcase"></i></div>
+                                <div class="card-content">
+                                    <h3>Office Relocation</h3>
+                                    <p>Minimize downtime, maximize efficiency.</p>
+                                </div>
+                            </div>
+                             <div class="card-back">
+                                 <div class="card-content">
+                                    <h3>Efficient Office Moves</h3>
+                                    <p>We specialize in corporate and office relocations, ensuring minimal business disruption. Our team securely packs all equipment, furniture, and documents for a swift and organized move.</p>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="card-flip-container fade-in">
+                        <div class="card-flipper">
+                            <div class="card-front">
+                                <div class="card-icon"><i class="fas fa-box-open"></i></div>
+                                <div class="card-content">
+                                    <h3>Storage & Warehousing</h3>
+                                    <p>Flexible and secure storage.</p>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <div class="card-content">
+                                    <h3>Flexible Storage Solutions</h3>
+                                    <p>Need to store your items? Our secure, clean, and insured warehouses offer flexible short-term and long-term storage solutions for household goods and business inventory.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section-padding">
+            <div class="container about-container">
+                <div class="about-content fade-in">
+                    <h2 class="section-title">Our Commitment to Excellence</h2>
+                    <p>Founded on the principle of trust, MDM Relocation is dedicated to transforming the logistics industry. We combine years of experience with a customer-first approach, leveraging a hybrid model of our own teams and verified partners to ensure quality and reliability across India.</p>
+                     <div class="trust-badges">
+                        <div class="badge">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Flexible & Convenient Dates</span>
+                        </div>
+                        <div class="badge">
+                             <i class="fas fa-tags"></i>
+                            <span>Instant & Transparent Pricing</span>
+                        </div>
+                        <div class="badge">
+                             <i class="fas fa-boxes-packing"></i>
+                            <span>Premium Packing & Materials</span>
+                        </div>
+                         <div class="badge">
+                             <i class="fas fa-clock"></i>
+                            <span>Guaranteed On-Time Service</span>
+                        </div>
+                         <div class="badge">
+                             <i class="fas fa-headset"></i>
+                            <span>24/7 Dedicated Support</span>
+                        </div>
+                    </div>
+                </div>
+                 <div class="about-image-collage fade-in">
+                    <img src="https://images.pexels.com/photos/4246120/pexels-photo-4246120.jpeg?auto=compress&cs=tinysrgb&w=800" alt="MDM Relocation professional logistics truck" class="collage-img-1" loading="lazy" width="400" height="300" referrerPolicy="no-referrer">
+                    <img src="https://images.pexels.com/photos/4506270/pexels-photo-4506270.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Professional packing services" class="collage-img-2" loading="lazy" referrerPolicy="no-referrer">
+                    <img src="https://images.pexels.com/photos/6169668/pexels-photo-6169668.jpeg?auto=compress&cs=tinysrgb&w=800" alt="MDM Relocation expert team" class="collage-img-3" loading="lazy" referrerPolicy="no-referrer">
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="section-padding">
+            <div class="container fade-in">
+                <h2 class="section-title">What Our Customers Say</h2>
+                <div class="testimonial-slider">
+                    <div class="testimonial-slides">
+                        <div class="testimonial-card">
+                            <div class="stars">★★★★★</div>
+                            <p>"MDM made my move from Bangalore to Kerala completely seamless. Their team was professional, their support was prompt, and not a single item was damaged. The real-time tracking was a huge plus! Highly recommended!"</p>
+                            <div class="client-info">
+                                <div class="avatar" style="width: 80px; height: 80px; background-color: #ffd600; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-user" style="font-size: 2rem; color: white;"></i>
+                                </div>
+                                <span><strong>Manager</strong>, Oracle</span>
+                            </div>
+                        </div>
+                        <div class="testimonial-card">
+                            <div class="stars">★★★★★</div>
+                            <p>"This was my second move with MDM and they were flawless once again. Punctual, professional, and excellent communication throughout. Their transparent pricing means no surprises. Truly the best in the business."</p>
+                            <div class="client-info">
+                                <div class="avatar" style="width: 80px; height: 80px; background-color: #ffd600; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-user" style="font-size: 2rem; color: white;"></i>
+                                </div>
+                               <span><strong>Bank Employee</strong>, Reserve Bank of India</span>
+                            </div>
+                        </div>
+                         <div class="testimonial-card">
+                            <div class="stars">★★★★★</div>
+                            <p>"Shifting an entire co-living space is a massive task, but MDM handled it with incredible efficiency. Their professional packing and organized approach saved us time and money. An outstanding service."</p>
+                            <div class="client-info">
+                                <div class="avatar" style="width: 80px; height: 80px; background-color: #ffd600; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-user" style="font-size: 2rem; color: white;"></i>
+                                </div>
+                               <span><strong>CEO & Co-Founder</strong>, Isthara Co-Living</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-controls">
+                        <button class="slider-btn prev-btn" aria-label="Previous testimonial"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-btn next-btn" aria-label="Next testimonial"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cta-strip" class="section-padding-sm">
+             <div class="container cta-strip-content">
+                <h2>Planning your move?</h2>
+                <p>Contact MDM Relocation for a quick, no-obligation quote and experience the best in shifting services. Let us make your next move your easiest one.</p>
+                <a href="#hero" class="cta-button scroll-link">Request a Free Quote</a>
+             </div>
+        </section>
+
+        <section id="contact" class="section-padding">
+            <div class="container fade-in">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <p>Have questions? We're here to help. Reach out to us via phone, email, or visit our office.</p>
+                        <ul>
+                            <li><i class="fas fa-phone"></i> <a href="tel:+918438050188">+91 843-805-0188</a></li>
+                            <li><i class="fas fa-envelope"></i> <a href="mailto:mdmrelocation@gmail.com">mdmrelocation@gmail.com</a></li>
+                            <li><i class="fas fa-map-marker-alt"></i> Door NO.6, First Floor, Ratna Dhasil Complex, No.85, G.N.T.Road, Ring Road,Madavaram, Chennai- 600 110, India</li>
+                        </ul>
+                         <div class="map-container">
+                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.733355482381!2d72.8860223153942!3d19.07548598708801!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d6408c2!2sBandra%20Kurla%20Complex!5e0!3m2!1sen!2sin!4v1675865912345!5m2!1sen!2sin" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="MDM Relocation Location"></iframe>
+                         </div>
+                    </div>
+                     <div class="contact-form-container">
+                        <h3>Send Us a Message</h3>
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <input type="text" name="contact-name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="contact-email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="contact-message" rows="4" placeholder="Your Message" required></textarea>
+                            </div>
+                            <button type="submit" class="cta-button submit-btn">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer-section">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 MDM Relocation. All Rights Reserved.</p>
+                 <div class="footer-links">
+                    <a class="scroll-link" href="#services">Services</a>
+                    <a class="scroll-link" href="#about">About</a>
+                    <a class="scroll-link" href="#contact">Contact</a>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/company/mdm-relocation/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/mdmrelocation/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <div id="exit-intent-popup" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="display: none;">
+        <div class="modal-content glassmorphic">
+            <button class="close-modal" aria-label="Close dialog">&times;</button>
+            <h2 id="modal-title">Leaving So Soon?</h2>
+            <p>Get a quick free quote before you go!</p>
+            <form id="popup-quote-form" onsubmit="submitPopupDataToFirebase(event)">
+                    <div class="form-group">
+                        <label for="popup-phone-number">Phone Number</label>
+                        <div style="position:relative;">
+                            <input type="tel" id="popup-phone-number" name="phone-number" placeholder="e.g., 9876543210" required maxlength="10" pattern="[0-9]{10}" style="padding-left:40px; border:2px solid #ffd600; border-radius:8px; height:48px; font-size:1rem; width:100%; box-sizing:border-box;" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);">
+                            <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#ffd600; font-size:1.2em;"><i class='fas fa-phone'></i></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="cta-button submit-btn">Get My Quote Now</button>
+                </form>
+            <p class="small-text">We respect your privacy. No spam, ever.</p>
+        </div>
+    </div>
+
+    <!-- AI Chatbot removed as requested -->
+
+    <div id="toast-container"></div>
+        <style>
+            .phone-group .phone-input-wrapper {
+                position: relative;
+                display: flex;
+                align-items: center;
+            }
+            .phone-group input[type="tel"] {
+                width: 100%;
+                height: 48px;
+                border: 2px solid #ffd600;
+                border-radius: 8px;
+                font-size: 1rem;
+                padding-left: 44px;
+                background: #fff;
+                color: #222;
+                box-sizing: border-box;
+                font-family: inherit;
+                font-weight: 400;
+            }
+            .phone-group .phone-icon {
+                position: absolute;
+                left: 16px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #ffd600;
+                font-size: 1.2em;
+                pointer-events: none;
+                display: flex;
+                align-items: center;
+                height: 100%;
+            }
+        </style>
+        <script type="module" src="/src/index.tsx"></script>
+</body>
+</html>
