@@ -239,65 +239,89 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Enhanced Popup Logic ---
     const exitIntentPopup = document.getElementById('exit-intent-popup');
+    let isPopupVisible = false;
+    let hidePopupTimeout: number | null = null;
+    let lastPopupClosedAt = 0;
+    const POPUP_COOLDOWN_MS = 30_000;
+
+    const isCooldownElapsed = () => {
+        const elapsed = Date.now() - lastPopupClosedAt;
+        return elapsed >= POPUP_COOLDOWN_MS;
+    };
+
+    const showPopup = (respectCooldown = false) => {
+        if (!exitIntentPopup || isPopupVisible) return;
+        if (respectCooldown && !isCooldownElapsed()) return;
+
+        if (hidePopupTimeout !== null) {
+            window.clearTimeout(hidePopupTimeout);
+            hidePopupTimeout = null;
+        }
+
+        (exitIntentPopup as HTMLElement).style.display = 'flex';
+        setTimeout(() => exitIntentPopup.classList.add('active'), 10);
+        isPopupVisible = true;
+    };
 
     const hidePopup = () => {
-        if (exitIntentPopup) {
-            exitIntentPopup.classList.remove('active');
-            setTimeout(() => {
-                 (exitIntentPopup as HTMLElement).style.display = 'none';
-            }, 300);
-        }
+        if (!exitIntentPopup || !isPopupVisible) return;
+
+        // Reset visibility immediately so triggers can reopen without session gating.
+        isPopupVisible = false;
+        lastPopupClosedAt = Date.now();
+        exitIntentPopup.classList.remove('active');
+        hidePopupTimeout = window.setTimeout(() => {
+            (exitIntentPopup as HTMLElement).style.display = 'none';
+            hidePopupTimeout = null;
+        }, 300);
     };
 
     const setupPopupTriggers = () => {
-        if (!exitIntentPopup) return;
+        if (!exitIntentPopup) return () => {};
 
         const closeModalButton = exitIntentPopup.querySelector('.close-modal');
-        
-        const showPopup = () => {
-            // Check session storage to ensure we don't spam the user.
-            if (sessionStorage.getItem('mdm_popup_shown') === 'true') {
-                window.removeEventListener('scroll', handleScroll); // Cleanup listener
-                return;
-            }
 
-            (exitIntentPopup as HTMLElement).style.display = 'flex';
-            setTimeout(() => exitIntentPopup.classList.add('active'), 10);
-            sessionStorage.setItem('mdm_popup_shown', 'true');
-            
-            // Once shown, the scroll trigger is no longer needed for this session.
-            window.removeEventListener('scroll', handleScroll);
-        };
-        
-        const handleScroll = () => {
-            // Show when user scrolls past 40% of the page
-            if (window.scrollY > (document.body.scrollHeight * 0.4)) {
-                showPopup();
-            }
-        };
-
-        // --- POPUP TRIGGERS ---
-        // 1. On Entry: Show after a 3-second delay.
-        setTimeout(showPopup, 3000);
-
-        // 2. On Scroll: Show as a reminder.
-        window.addEventListener('scroll', handleScroll, { passive: true });
-
-        // 3. On Exit-Intent: Show when the user intends to leave (desktop only).
-        document.addEventListener('mouseleave', (e) => {
+        const handleMouseLeave = (e: MouseEvent) => {
             if (e.clientY <= 0) {
                 showPopup();
             }
-        });
-        
-        // --- Event listeners for closing the popup ---
-        closeModalButton?.addEventListener('click', hidePopup);
-        exitIntentPopup.addEventListener('click', (e) => {
-            // Close if the user clicks on the overlay background
+        };
+
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                showPopup();
+            }
+        };
+
+        const handleScroll = () => {
+            const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+            if (scrollableHeight <= 0) return;
+
+            const scrollProgress = window.scrollY / scrollableHeight;
+            if (scrollProgress > 0.5) {
+                showPopup(true);
+            }
+        };
+
+        const handleOverlayClick = (e: Event) => {
             if (e.target === exitIntentPopup) {
                 hidePopup();
             }
-        });
+        };
+
+        document.addEventListener('mouseleave', handleMouseLeave);
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        closeModalButton?.addEventListener('click', hidePopup);
+        exitIntentPopup.addEventListener('click', handleOverlayClick);
+
+        return () => {
+            document.removeEventListener('mouseleave', handleMouseLeave);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+            window.removeEventListener('scroll', handleScroll);
+            closeModalButton?.removeEventListener('click', hidePopup);
+            exitIntentPopup.removeEventListener('click', handleOverlayClick);
+        };
     };
 
     // --- Toast Notification Logic ---
@@ -827,7 +851,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupTestimonialSlider();
     setupAnimatedCounters();
     setupFormSubmission();
-    setupPopupTriggers();
+    const cleanupPopupTriggers = setupPopupTriggers();
+    window.addEventListener('beforeunload', cleanupPopupTriggers);
     setupDatePicker();
     setupAIAssistant();
 });
