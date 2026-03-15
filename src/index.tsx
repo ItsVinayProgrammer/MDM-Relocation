@@ -346,6 +346,83 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     };
 
+    const successOverlay = document.getElementById('success-overlay');
+    const successOverlayTitle = document.getElementById('success-overlay-title');
+    const successOverlayMessage = document.getElementById('success-overlay-message');
+    const successOverlayClose = document.getElementById('success-overlay-close');
+
+    const runSuccessConfetti = () => {
+        const confettiContainer = document.createElement('div');
+        confettiContainer.className = 'success-confetti-container';
+
+        const confettiColors = ['#FFD700', '#25D366', '#8C1C13', '#E87A00', '#ffffff'];
+        const durationMs = 3600;
+        const gravity = 0.8;
+        const scalar = 1.2;
+        const spread = 78;
+        const pieceCount = 150;
+
+        for (let i = 0; i < pieceCount; i++) {
+            const piece = document.createElement('span');
+            const horizontalPosition = Math.random() * 100;
+            const delay = Math.random() * 700;
+            const duration = durationMs + (Math.random() * 600 - 300);
+            const drift = (Math.random() - 0.5) * spread * 0.8;
+            const rotation = 280 + Math.random() * 460;
+            const fallDistance = 95 * gravity;
+            const color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+
+            piece.className = 'success-confetti-piece';
+            piece.style.left = `${horizontalPosition}%`;
+            piece.style.backgroundColor = color;
+            piece.style.animationDelay = `${delay}ms`;
+            piece.style.animationDuration = `${duration}ms`;
+            piece.style.setProperty('--confetti-drift', `${drift}vw`);
+            piece.style.setProperty('--confetti-rotate', `${rotation}deg`);
+            piece.style.setProperty('--confetti-fall-distance', `${fallDistance}vh`);
+            piece.style.setProperty('--confetti-scale', `${scalar}`);
+            confettiContainer.appendChild(piece);
+        }
+
+        document.body.appendChild(confettiContainer);
+        window.setTimeout(() => confettiContainer.remove(), durationMs + 1400);
+    };
+
+    const closeSuccessOverlay = () => {
+        if (!successOverlay) return;
+        successOverlay.classList.remove('active');
+        successOverlay.setAttribute('aria-hidden', 'true');
+    };
+
+    const setupSuccessOverlay = () => {
+        if (!successOverlay || !successOverlayClose) return;
+
+        successOverlayClose.addEventListener('click', closeSuccessOverlay);
+        successOverlay.addEventListener('click', (e) => {
+            if (e.target === successOverlay) {
+                closeSuccessOverlay();
+            }
+        });
+    };
+
+    const showUniversalSuccess = (formId: string) => {
+        runSuccessConfetti();
+
+        if (!successOverlay || !successOverlayTitle || !successOverlayMessage) {
+            showToast('Thank you for your submission! We will get back to you shortly.');
+            return;
+        }
+
+        const isMainQuoteForm = formId === 'quote-form';
+        successOverlayTitle.textContent = isMainQuoteForm ? 'Request Received' : 'Message Sent!';
+        successOverlayMessage.textContent = isMainQuoteForm
+            ? 'Thank you for choosing MDM Relocation. We have received your details; our team will review your requirements and get back to you as soon as possible.'
+            : 'Message Sent! We will get back to you shortly.';
+
+        successOverlay.classList.add('active');
+        successOverlay.setAttribute('aria-hidden', 'false');
+    };
+
     // --- Form Submission Handling ---
     const setupFormSubmission = () => {
         const forms = document.querySelectorAll('form');
@@ -361,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         submittedAt: new Date().toISOString(),
                         formId: form.id || null
                     });
-                    showToast('Thank you for your submission! We will get back to you shortly.');
+                    showUniversalSuccess(form.id || '');
                     form.reset();
                     document.dispatchEvent(new CustomEvent('custom-form-reset', { detail: { formId: form.id } }));
                     if(form.closest('.modal-overlay')) {
@@ -850,6 +927,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupScrollAnimations();
     setupTestimonialSlider();
     setupAnimatedCounters();
+    setupSuccessOverlay();
     setupFormSubmission();
     const cleanupPopupTriggers = setupPopupTriggers();
     window.addEventListener('beforeunload', cleanupPopupTriggers);

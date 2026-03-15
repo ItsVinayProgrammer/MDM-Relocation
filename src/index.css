@@ -1405,6 +1405,162 @@ input[type="checkbox"]:focus {
     border-left: 4px solid var(--primary-red);
 }
 
+/* UNIVERSAL SUCCESS OVERLAY */
+.success-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(16, 18, 22, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 3600;
+}
+
+.success-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.success-overlay-card {
+    width: min(560px, 100%);
+    background: #fff;
+    border-radius: 18px;
+    padding: 34px 30px;
+    text-align: center;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+    transform: scale(0.95);
+    transition: transform 0.25s ease;
+}
+
+.success-overlay.active .success-overlay-card {
+    transform: scale(1);
+}
+
+.success-icon-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.success-icon-wrap i {
+    color: #22c55e;
+    font-size: 4rem;
+    animation: success-pop 0.55s ease;
+}
+
+.success-overlay-card h3 {
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    font-size: clamp(1.5rem, 2.2vw, 1.9rem);
+}
+
+.success-overlay-card p {
+    color: var(--subtext-gray);
+    margin: 0 auto 24px;
+    max-width: 46ch;
+    line-height: 1.65;
+}
+
+.success-overlay-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.success-btn-close,
+.success-btn-whatsapp {
+    border-radius: 999px;
+    font-weight: 600;
+    padding: 12px 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.success-btn-close {
+    color: var(--primary-red);
+    background: #fff;
+    border: 2px solid var(--primary-red);
+}
+
+.success-btn-close:hover,
+.success-btn-close:focus-visible {
+    background: #fff3f1;
+    outline: none;
+}
+
+.success-btn-whatsapp {
+    color: #fff;
+    background: #25D366;
+    border: 2px solid #25D366;
+}
+
+.success-btn-whatsapp:hover,
+.success-btn-whatsapp:focus-visible {
+    color: #fff;
+    background: #1fb457;
+    border-color: #1fb457;
+    outline: none;
+}
+
+.success-confetti-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3550;
+    overflow: hidden;
+}
+
+.success-confetti-piece {
+    position: absolute;
+    top: -14px;
+    width: 10px;
+    height: 16px;
+    border-radius: 2px;
+    opacity: 0.95;
+    will-change: transform, opacity;
+    animation: confetti-fall 3.6s cubic-bezier(0.19, 0.75, 0.22, 1) forwards;
+}
+
+@keyframes confetti-fall {
+    from {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(var(--confetti-scale, 1.2));
+    }
+    to {
+        transform: translate3d(var(--confetti-drift, 0), var(--confetti-fall-distance, 76vh), 0) rotate(var(--confetti-rotate, 420deg)) scale(var(--confetti-scale, 1.2));
+        opacity: 0;
+    }
+}
+
+@keyframes success-pop {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    70% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 576px) {
+    .success-overlay-card {
+        padding: 28px 20px;
+    }
+}
+
 #ai-assistant-container {
     position: fixed;
     bottom: 30px;
